@@ -52,6 +52,8 @@ MSG_NAV_SOL       = 0x06
 # RXM messages
 MSG_RXM_RAW    = 0x10
 MSG_RXM_SFRB   = 0x11
+MSG_RXM_SFRBX  = 0x13
+MSG_RXM_RAWX   = 0x15
 MSG_RXM_SVSI   = 0x20
 MSG_RXM_EPH    = 0x31
 MSG_RXM_ALM    = 0x30
@@ -427,6 +429,18 @@ msg_types = {
     (CLASS_RXM, MSG_RXM_SFRB)  : UBloxDescriptor('RXM_SFRB',
                                                   '<BB10I',
                                                   ['chn', 'svid', 'dwrd[10]']),
+    (CLASS_RXM, MSG_RXM_RAWX)  : UBloxDescriptor('RXM_RAWX',
+                                                  '<dHbB? 3B',
+                                                  ['rcvTow', 'week', 'leapS', 'numMeas', 'recStat', 'reserved1'],
+                                                  'numMeas',
+                                                  '<ddfBBBBHB????B',
+                                                  ['prMes', 'cpMes', 'doMes', 'gnssId', 'svId', 'reserved2', 'freqId', 'locktime', 'cno', 'prStdev', 'cpStdev', 'doStdev', 'trkStat', 'reserved3']),
+    (CLASS_RXM, MSG_RXM_SFRBX)  : UBloxDescriptor('RXM_SFRBX',
+                                                  '<BBBBBBBB',
+                                                  ['gnssId', 'svId', 'reserved1', 'freqId', 'numWords', 'reserved2', 'version', 'reserved3'],
+                                                  'numWords',
+                                                  '<L',
+                                                  ['dwrd']),
     (CLASS_AID, MSG_AID_ALM)   : UBloxDescriptor('AID_ALM',
                                                   '<II',
                                                  '_remaining',
